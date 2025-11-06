@@ -1,18 +1,30 @@
-<h1>Importar archivo .tab</h1>
+<div class="container py-5">
+  <div class="card shadow-lg p-4 mx-auto" style="max-width: 600px; border-radius: 1rem;">
+    <h1 class="text-center mb-4 text-primary fw-bold">📦 Importar archivo .tab</h1>
 
-<%= form_with url: import_sales_path, local: true, multipart: true do |form| %>
-  <div>
-    <%= form.file_field :file %>
+    <%= form_with url: import_sales_path, local: true, multipart: true, class: "text-center" do |form| %>
+      <div class="mb-3">
+        <%= form.label :file, "Selecciona el archivo .tab", class: "form-label fw-semibold" %>
+        <%= form.file_field :file, class: "form-control" %>
+      </div>
+      <div class="d-grid gap-2">
+        <%= form.submit "Subir archivo", class: "btn btn-success btn-lg" %>
+      </div>
+    <% end %>
+
+    <% if notice %>
+      <div class="alert alert-success mt-4 text-center"><%= notice %></div>
+    <% elsif alert %>
+      <div class="alert alert-danger mt-4 text-center"><%= alert %></div>
+    <% end %>
+
+    <hr class="my-4">
+
+    <h2 class="text-center text-dark">
+      Total de ingresos:
+      <span class="text-success fw-bold">
+        <%= number_to_currency(@total_revenue || 0) %>
+      </span>
+    </h2>
   </div>
-  <div>
-    <%= form.submit "Subir archivo" %>
-  </div>
-<% end %>
-
-<% if notice %>
-  <p style="color: green;"><%= notice %></p>
-<% elsif alert %>
-  <p style="color: red;"><%= alert %></p>
-<% end %>
-
-<h2>Total de ingresos: <%= number_to_currency(@total_revenue) %></h2>
+</div>
